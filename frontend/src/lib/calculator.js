@@ -40,5 +40,5 @@ export function formatCurrency(amount) {
   if (!Number.isFinite(amount)) return '—';
   const abs = Math.abs(amount);
   const sign = amount < 0 ? '-' : '';
-  return `${sign}$${abs.toFixed(2)}`;
+  return `${sign}$${abs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }

@@ -20,23 +20,6 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
 
   return (
     <div className="rounded-2xl border border-white/5 bg-novig-card overflow-hidden">
-      <div className="border-b border-white/5 px-6 py-5">
-        <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/50">Book-by-book comparison</div>
-        <h2 className="text-lg font-black text-red-400">Where your money is going</h2>
-        <p className="mt-1 text-xs text-white/40">
-          ${bet.stake} on {teamName} — sorted worst to best. Click a book to compare it above.
-        </p>
-        <div className="flex items-center gap-3 mt-1">
-          <span className="flex items-center gap-1 text-[10px] text-white/25">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
-            Live odds
-          </span>
-          <span className="text-[10px] text-white/25">·</span>
-          <span className="text-[10px] text-white/25">Proportional de-vig model</span>
-          <span className="text-[10px] text-white/25">·</span>
-          <span className="text-[10px] text-white/25">Updated every 5 min</span>
-        </div>
-      </div>
 
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
@@ -80,8 +63,8 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                       />
                     )}
                     <div
-                      className={`font-bold ${
-                        r.isNovig ? 'text-blue-200 text-base' : 'text-white'
+                      className={`font-black ${
+                        r.isNovig ? 'text-white text-base uppercase' : 'text-white'
                       }`}
                     >
                       {r.bookTitle}
