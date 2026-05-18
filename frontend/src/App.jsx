@@ -73,11 +73,11 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-screen overflow-hidden flex flex-col">
       {/* Nav */}
-      <nav className="flex items-center justify-between px-8 py-4 border-b border-white/5">
+      <nav className="flex items-center justify-between px-6 py-2.5 border-b border-white/5 shrink-0">
         <div className="flex items-center gap-2.5">
-          <img src={novigLogo} alt="Novig" className="h-8 w-8 rounded-lg" />
+          <img src={novigLogo} alt="Novig" className="h-7 w-7 rounded-lg" />
           <div>
             <div className="text-white/40 text-[10px] font-semibold tracking-widest uppercase leading-none">Novig</div>
             <div className="text-white font-bold text-sm leading-tight">Vig Calculator</div>
@@ -94,28 +94,27 @@ export default function App() {
       </nav>
 
       {/* Hero */}
-      <div className="px-8 pt-12 pb-8 max-w-6xl">
-        <div className="mb-2 section-label">Vig Calculator</div>
-        <h1 className="text-5xl font-black text-white leading-tight tracking-tight">
+      <div className="px-6 pt-5 pb-3 shrink-0">
+        <div className="mb-1 section-label">Vig Calculator</div>
+        <h1 className="text-3xl font-black text-white leading-tight tracking-tight">
           See your{' '}
           <em className="text-blue-400 not-italic font-black">vig.</em>
         </h1>
-        <p className="mt-3 text-white/40 text-sm max-w-md">
+        <p className="mt-1 text-white/40 text-xs max-w-md">
           How much commission you're paying versus Novig's zero-vig pricing — broken down by sportsbook.
         </p>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 px-8 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl">
+      {/* Two-column content */}
+      <div className="flex-1 overflow-hidden px-6 pb-4">
+        <div className="grid h-full gap-4" style={{ gridTemplateColumns: '40% 1fr' }}>
           {/* Left column - inputs */}
-          <div className="space-y-4">
+          <div className="flex flex-col gap-3 overflow-y-auto min-w-0">
             <SportSelector
               sport={sport}
               onChange={setSport}
               loading={loadingGames}
             />
-
             <GameSelector
               games={games}
               loading={loadingGames}
@@ -127,7 +126,6 @@ export default function App() {
                 setSelectedBookKey(null);
               }}
             />
-
             {selectedGame && (
               <BetInput
                 game={selectedGame}
@@ -139,21 +137,24 @@ export default function App() {
               />
             )}
           </div>
+
           {/* Right column - results */}
-          <div className="space-y-4">
-            {committedBet && (
+          <div className="flex flex-col gap-3 overflow-hidden min-w-0">
+            {committedBet ? (
               <>
                 <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
-                <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
+                <div className="flex-1 overflow-y-auto">
+                  <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
+                </div>
               </>
+            ) : (
+              <div className="flex-1 flex items-center justify-center text-white/20 text-sm text-center px-8">
+                Select a game and calculate to see your vig cost
+              </div>
             )}
           </div>
         </div>
       </div>
-
-      <footer className="px-8 pb-8 text-xs text-white/20">
-        Odds data from The Odds API. Vig calculations use proportional de-vigging from the two-way moneyline market.
-      </footer>
     </div>
   );
 }
