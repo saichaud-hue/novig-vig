@@ -21,14 +21,14 @@ export default function ResultsCard({ bet, selectedBookKey }) {
   return (
     <div
       id="novig-results-card"
-      className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-novig-purple/30 via-novig-dark to-novig-blue/30 p-8 shadow-soft"
+      className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1e1b4b] via-[#1e1b4b] to-[#1e3a8a] p-8 shadow-soft"
     >
       <div className="absolute inset-0 bg-novig-radial opacity-60" />
       <div className="relative">
         <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-novig-accent">
           You're losing
         </div>
-        <div className="bg-gradient-to-r from-white via-white to-novig-accent bg-clip-text text-5xl font-extrabold tracking-tight text-transparent sm:text-6xl">
+        <div className="bg-gradient-to-r from-white via-white to-novig-accent bg-clip-text text-6xl font-black tracking-tight text-transparent sm:text-7xl">
           {formatCurrency(worst.vigCost)}
         </div>
         <div className="mt-2 text-base text-slate-300">
@@ -55,7 +55,7 @@ export default function ResultsCard({ bet, selectedBookKey }) {
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               On Novig
             </div>
-            <div className="mt-1 text-2xl font-bold text-emerald-300">
+            <div className="mt-1 text-2xl font-bold text-[#22d3ee]">
               Keep every cent
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function ResultsCard({ bet, selectedBookKey }) {
           href="https://novig.co"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-primary mt-7 w-full sm:w-auto"
+          className="btn-primary mt-7 w-full animate-pulse sm:w-auto"
         >
           Place This Bet on Novig
           <FaArrowRight />

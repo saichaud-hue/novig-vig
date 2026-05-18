@@ -75,14 +75,21 @@ export default function App() {
     <div className="min-h-screen px-4 py-10 sm:py-16">
       <div className="mx-auto max-w-3xl">
         <header className="mb-10 text-center">
+          <div className="mb-5 flex items-center justify-center gap-3">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="40" height="40" rx="9" fill="#3b82f6"/>
+              <path d="M10 30V10h4.5l11 14.5V10H30v20h-4.5L14.5 15.5V30H10z" fill="black"/>
+            </svg>
+            <span className="text-2xl font-black tracking-tight text-white">Novig</span>
+          </div>
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-novig-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-novig-accent" />
-            Novig · Zero-vig sportsbook
+            Zero-vig sportsbook
           </div>
-          <h1 className="bg-gradient-to-r from-white to-novig-accent bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl">
+          <h1 className="bg-gradient-to-r from-white to-novig-accent bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl">
             What You Left on the Table
           </h1>
-          <p className="mx-auto mt-3 max-w-xl text-base text-slate-400 sm:text-lg">
+          <p className="mx-auto mt-3 max-w-xl text-base font-medium text-slate-400 sm:text-lg">
             See how much vig you're paying vs Novig's zero-commission pricing.
           </p>
         </header>

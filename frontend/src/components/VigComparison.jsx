@@ -20,7 +20,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
   return (
     <div className="card overflow-hidden p-0">
       <div className="border-b border-white/10 px-6 py-5">
-        <h2 className="text-lg font-semibold">Book-by-book comparison</h2>
+        <h2 className="text-lg font-black">Book-by-book comparison</h2>
         <p className="mt-1 text-sm text-slate-400">
           ${bet.stake} on {teamName} — sorted worst to best. Click a book to compare it above.
         </p>
@@ -63,9 +63,9 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                 onClick={r.isNovig ? undefined : () => onSelectBook(r.bookKey)}
                 className={`border-b border-white/5 last:border-0 transition ${
                   r.isNovig
-                    ? 'bg-gradient-to-r from-emerald-500/15 to-emerald-500/5'
+                    ? 'bg-emerald-900/30'
                     : isSelected
-                    ? 'bg-novig-purple/20 cursor-pointer'
+                    ? 'border-l-4 border-l-novig-purple bg-novig-purple/20 cursor-pointer'
                     : 'hover:bg-white/[0.03] cursor-pointer'
                 }`}
               >
@@ -110,7 +110,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                     r.isNovig ? 'text-emerald-400' : 'text-red-400'
                   }`}
                 >
-                  {r.isNovig ? '$0.00' : `-${formatCurrency(r.vigCost).replace('-', '')}`}
+                  {r.isNovig ? <span className="text-emerald-400 font-black">$0.00</span> : `-${formatCurrency(r.vigCost).replace('-', '')}`}
                 </td>
               </tr>
             );})}
