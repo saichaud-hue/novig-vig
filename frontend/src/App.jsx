@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import novigLogo from './assets/novig-logo.png';
+import novigLogo from './assets/novig-logo.svg'
 import axios from 'axios';
 import SportSelector from './components/SportSelector.jsx';
 import GameSelector from './components/GameSelector.jsx';
