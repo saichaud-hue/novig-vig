@@ -16,7 +16,7 @@ const ODDS_API_BASE = 'https://api.the-odds-api.com/v4';
 const REQUEST_TIMEOUT_MS = 30_000;
 
 async function fetchOdds(sport, apiKey) {
-  const url = `${ODDS_API_BASE}/sports/${sport}/odds?apiKey=${apiKey}&regions=us&markets=h2h&oddsFormat=american`;
+  const url = `${ODDS_API_BASE}/sports/${sport}/odds?apiKey=${apiKey}&regions=us&markets=h2h&oddsFormat=american&bookmakers=draftkings,fanduel,betmgm,caesars,pointsbet,bet365,betrivers,mybookie,bovada,betonline,lowvig,wynnbet,barstool,unibet,si_sportsbook,superbook,betus,windcreek`;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
