@@ -22,7 +22,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
     <div className="rounded-2xl border border-white/5 bg-novig-card overflow-hidden">
       <div className="border-b border-white/5 px-6 py-5">
         <div className="section-label mb-1">Book-by-book comparison</div>
-        <h2 className="text-lg font-black text-white">Sportsbook breakdown</h2>
+        <h2 className="text-lg font-black text-white">Where your money is going</h2>
         <p className="mt-1 text-xs text-white/40">
           ${bet.stake} on {teamName} — sorted worst to best. Click a book to compare it above.
         </p>

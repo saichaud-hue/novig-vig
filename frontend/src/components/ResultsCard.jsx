@@ -25,19 +25,19 @@ export default function ResultsCard({ bet, selectedBookKey }) {
     >
       {/* Side-by-side profit comparison */}
       <div className="grid grid-cols-2 gap-3 mb-5">
-        <div className="rounded-xl bg-white/5 border border-white/10 p-4">
-          <div className="section-label mb-1">{worst.bookTitle}</div>
-          <div className="text-2xl font-black text-red-300">
+        <div className="rounded-xl bg-red-950/40 border border-red-500/20 p-4">
+          <div className="text-[10px] font-semibold uppercase tracking-widest text-red-400/70 mb-1">{worst.bookTitle}</div>
+          <div className="text-2xl font-black text-red-400">
             {formatCurrency(worst.bookPayout)}
           </div>
-          <div className="text-xs text-white/30 mt-0.5">your profit</div>
+          <div className="text-xs text-red-400/40 mt-0.5">your profit</div>
         </div>
-        <div className="rounded-xl bg-blue-600/20 border border-blue-500/30 p-4">
-          <div className="section-label mb-1 text-blue-300">Novig</div>
+        <div className="rounded-xl bg-emerald-950/40 border border-emerald-500/30 p-4">
+          <div className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400/70 mb-1">Novig</div>
           <div className="text-2xl font-black text-emerald-400">
-            {novigRow ? formatCurrency(novigRow.bookPayout) : '—'}
+            +{novigRow ? formatCurrency(novigRow.bookPayout) : '—'}
           </div>
-          <div className="text-xs text-blue-300/50 mt-0.5">your profit</div>
+          <div className="text-xs text-emerald-400/40 mt-0.5">your profit</div>
         </div>
       </div>
 

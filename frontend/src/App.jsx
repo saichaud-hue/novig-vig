@@ -106,12 +106,12 @@ export default function App() {
           <div className="flex flex-col gap-3 overflow-y-auto min-w-0">
             <div>
               <div className="mb-1 section-label">Vig Calculator</div>
-              <h1 className="text-3xl font-black text-white leading-tight tracking-tight">
-                See your{' '}
-                <em className="text-blue-400 not-italic font-black">vig.</em>
+              <h1 className="text-2xl font-black text-white leading-tight tracking-tight">
+                What are you leaving{' '}
+                <em className="text-blue-400 not-italic font-black">on the table?</em>
               </h1>
               <p className="mt-1 text-white/40 text-xs max-w-md">
-                How much commission you're paying versus Novig's zero-vig pricing — broken down by sportsbook.
+                See exactly how much vig you're paying per bet — and what you'd keep on Novig.
               </p>
             </div>
             <SportSelector
@@ -144,17 +144,15 @@ export default function App() {
 
           {/* Right column - results */}
           <div className="self-start overflow-hidden min-w-0">
-            {committedBet ? (
-              <div className="max-h-[calc(100vh-5rem)] overflow-y-auto space-y-4 pr-2">
-                <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
-                <BetSlip bet={committedBet} rows={committedRows} />
-                <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
-              </div>
-            ) : (
-              <div className="py-16 flex items-center justify-center text-white/20 text-sm text-center px-8">
-                Select a game and calculate to see your vig cost
-              </div>
-            )}
+            <div className="max-h-[calc(100vh-5rem)] overflow-y-auto space-y-3 pr-2">
+              <BetSlip bet={committedBet} rows={committedRows} />
+              {committedBet && (
+                <>
+                  <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
+                  <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
