@@ -99,23 +99,21 @@ export default function App() {
         </a>
       </nav>
 
-      {/* Hero */}
-      <div className="px-6 pt-5 pb-3 shrink-0">
-        <div className="mb-1 section-label">Vig Calculator</div>
-        <h1 className="text-3xl font-black text-white leading-tight tracking-tight">
-          See your{' '}
-          <em className="text-blue-400 not-italic font-black">vig.</em>
-        </h1>
-        <p className="mt-1 text-white/40 text-xs max-w-md">
-          How much commission you're paying versus Novig's zero-vig pricing — broken down by sportsbook.
-        </p>
-      </div>
-
       {/* Two-column content */}
-      <div className="flex-1 overflow-hidden px-6 pb-4">
-        <div className="grid h-full gap-4" style={{ gridTemplateColumns: '40% 1fr' }}>
-          {/* Left column - inputs */}
+      <div className="flex-1 overflow-hidden px-6 pb-4 pt-5">
+        <div className="grid h-full gap-4 items-start" style={{ gridTemplateColumns: '40% 1fr' }}>
+          {/* Left column - hero + inputs */}
           <div className="flex flex-col gap-3 overflow-y-auto min-w-0">
+            <div>
+              <div className="mb-1 section-label">Vig Calculator</div>
+              <h1 className="text-3xl font-black text-white leading-tight tracking-tight">
+                See your{' '}
+                <em className="text-blue-400 not-italic font-black">vig.</em>
+              </h1>
+              <p className="mt-1 text-white/40 text-xs max-w-md">
+                How much commission you're paying versus Novig's zero-vig pricing — broken down by sportsbook.
+              </p>
+            </div>
             <SportSelector
               sport={sport}
               onChange={setSport}
@@ -145,15 +143,15 @@ export default function App() {
           </div>
 
           {/* Right column - results */}
-          <div className="h-full overflow-hidden min-w-0">
+          <div className="self-start overflow-hidden min-w-0">
             {committedBet ? (
-              <div className="h-full overflow-y-auto space-y-4 pr-2">
+              <div className="max-h-[calc(100vh-5rem)] overflow-y-auto space-y-4 pr-2">
                 <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
                 <BetSlip bet={committedBet} rows={committedRows} />
                 <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
               </div>
             ) : (
-              <div className="h-full flex items-center justify-center text-white/20 text-sm text-center px-8">
+              <div className="py-16 flex items-center justify-center text-white/20 text-sm text-center px-8">
                 Select a game and calculate to see your vig cost
               </div>
             )}
