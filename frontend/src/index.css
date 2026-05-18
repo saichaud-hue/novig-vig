@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-novig-dark text-slate-100 min-h-screen;
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(124, 58, 237, 0.18), transparent 55%),
+      radial-gradient(circle at 80% 100%, rgba(59, 130, 246, 0.18), transparent 55%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md p-6 shadow-soft;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-novig-gradient
+      px-5 py-3 font-semibold text-white shadow-soft
+      transition hover:brightness-110 active:scale-[0.98]
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/20
+      px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-white/10;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-white/[0.06] px-4 py-3
+      text-slate-100 placeholder:text-slate-500 outline-none
+      focus:border-novig-accent focus:ring-2 focus:ring-novig-accent/40 transition;
+  }
+
+  .label {
+    @apply mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-400;
+  }
+}
