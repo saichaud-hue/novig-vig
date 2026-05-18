@@ -95,26 +95,23 @@ router.get('/odds/:sport', async (req, res) => {
 
   const games = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.data) ? parsed.data : parsed;
 
+  const transformed = (Array.isArray(games) ? games : []).map(g => ({
+    id: g.event_id || g.id,
+    home_team: g.home_team,
+    away_team: g.away_team,
+    commence_time: g.start_time || g.commence_time,
+    bookmakers: (g.books || g.bookmakers || []).map(b => ({
+      key: b.book || b.key,
+      title: b.book || b.title,
+      markets: [{ key: 'h2h', outcomes: (b.outcomes || []).map(o => ({ name: o.name, price: o.price })) }],
+    })),
+  }));
+
   const payload = {
     sport,
     fetchedAt: new Date().toISOString(),
-    count: Array.isArray(games) ? games.length : 0,
-    games: Array.isArray(games) ? games.map(game => ({
-      id: game.event_id,
-      commence_time: game.start_time,
-      home_team: game.home_team,
-      away_team: game.away_team,
-      sport_key: game.sport_key,
-      sport_title: game.sport_title,
-      bookmakers: Array.isArray(game.books) ? game.books.map(b => ({
-        key: b.book,
-        title: b.book,
-        markets: [{
-          key: 'h2h',
-          outcomes: Array.isArray(b.outcomes) ? b.outcomes.map(o => ({ name: o.name, price: o.price })) : [],
-        }],
-      })) : (game.bookmakers ?? []),
-    })) : [],
+    count: transformed.length,
+    games: transformed,
   };
 
   cache.set(cacheKey, payload);
