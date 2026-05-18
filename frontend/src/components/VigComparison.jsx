@@ -36,22 +36,6 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
           <span className="text-[10px] text-white/25">·</span>
           <span className="text-[10px] text-white/25">Updated every 5 min</span>
         </div>
-        <div className="mt-4 flex items-center gap-3">
-          <label className="text-sm font-medium text-slate-300 whitespace-nowrap">
-            Compare against:
-          </label>
-          <select
-            className="input py-1.5 text-sm"
-            value={selectedBookKey || ''}
-            onChange={(e) => onSelectBook(e.target.value)}
-          >
-            {rows.filter((r) => !r.isNovig).map((r) => (
-              <option key={r.bookKey} value={r.bookKey}>
-                {r.bookTitle}
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
 
       <div className="overflow-x-auto">

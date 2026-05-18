@@ -71,7 +71,7 @@ export default function App() {
     const rows = buildComparisonRows(bet);
     const worstBook = rows.find((r) => !r.isNovig);
     setSelectedBookKey((prev) => prev || worstBook?.bookKey || null);
-  }, [selectedGame, side, stake]);
+  }, [selectedGame, side, stake, selectedBookKey]);
 
   return (
     <div className="h-screen overflow-hidden flex flex-col">
@@ -124,6 +124,21 @@ export default function App() {
                 setSelectedBookKey(null);
               }}
             />
+            {selectedGame && (
+              <div className="card">
+                <label className="label">Compare against</label>
+                <select
+                  className="input"
+                  value={selectedBookKey || ''}
+                  onChange={(e) => setSelectedBookKey(e.target.value)}
+                >
+                  <option value="">Pick a sportsbook...</option>
+                  {(selectedGame.bookmakers || []).map((b) => (
+                    <option key={b.key} value={b.key}>{b.title}</option>
+                  ))}
+                </select>
+              </div>
+            )}
             {selectedGame && (
               <BetInput
                 game={selectedGame}
