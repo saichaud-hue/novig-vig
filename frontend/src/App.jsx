@@ -39,6 +39,8 @@ export default function App() {
           (a, b) => new Date(a.commence_time) - new Date(b.commence_time)
         );
         setGames(sorted);
+        const fanduelExists = sorted[0]?.bookmakers?.find((b) => b.key === 'fanduel');
+        setSelectedBookKey(fanduelExists ? 'fanduel' : null);
       })
       .catch((err) => {
         if (cancelled) return;
@@ -121,10 +123,12 @@ export default function App() {
               onSelect={(id) => {
                 setSelectedGameId(id);
                 setCommittedBet(null);
-                setSelectedBookKey(null);
+                const game = games.find((g) => g.id === id);
+                const hasFanduel = game?.bookmakers?.find((b) => b.key === 'fanduel');
+                setSelectedBookKey(hasFanduel ? 'fanduel' : game?.bookmakers?.[0]?.key || null);
               }}
             />
-            {selectedGame && (
+            {selectedGameId && (
               <div className="card">
                 <label className="label">Compare against</label>
                 <select
@@ -133,13 +137,13 @@ export default function App() {
                   onChange={(e) => setSelectedBookKey(e.target.value)}
                 >
                   <option value="">Pick a sportsbook...</option>
-                  {(selectedGame.bookmakers || []).map((b) => (
+                  {(selectedGame?.bookmakers || []).map((b) => (
                     <option key={b.key} value={b.key}>{b.title}</option>
                   ))}
                 </select>
               </div>
             )}
-            {selectedGame && (
+            {selectedBookKey && (
               <BetInput
                 game={selectedGame}
                 side={side}
@@ -152,15 +156,17 @@ export default function App() {
 
           {/* Right column - results */}
           <div className="self-start overflow-hidden min-w-0">
-            <div className="max-h-[calc(100vh-5rem)] overflow-y-auto space-y-3 pr-2">
-              <BetSlip bet={committedBet} rows={committedRows} />
-              {committedBet && (
-                <>
-                  <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
-                  <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
-                </>
-              )}
-            </div>
+            {committedBet ? (
+              <div className="max-h-[calc(100vh-5rem)] overflow-y-auto space-y-3 pr-2">
+                <BetSlip bet={committedBet} rows={committedRows} />
+                <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
+                <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-64 rounded-2xl border border-white/5 bg-white/[0.02] text-white/20 text-sm">
+                Select a game and pick your team to see your vig cost
+              </div>
+            )}
           </div>
         </div>
       </div>
