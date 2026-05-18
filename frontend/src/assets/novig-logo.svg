@@ -1,0 +1,7 @@
+<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- N icon mark -->
+  <rect width="32" height="32" rx="7" fill="#3b82f6"/>
+  <path d="M7 25V7h3.8l9.4 12V7H24v18h-3.8L10.8 13V25H7z" fill="white"/>
+  <!-- wordmark -->
+  <text x="40" y="23" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="18" font-weight="800" fill="white" letter-spacing="-0.5">novig</text>
+</svg>

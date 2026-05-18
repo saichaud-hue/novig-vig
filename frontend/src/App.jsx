@@ -6,6 +6,7 @@ import BetInput from './components/BetInput.jsx';
 import VigComparison from './components/VigComparison.jsx';
 import ResultsCard from './components/ResultsCard.jsx';
 import { buildComparisonRows } from './lib/extractBookmakerOdds.js';
+import novigLogo from './assets/novig-logo.svg';
 
 const API_BASE = import.meta.env.VITE_API_BASE || '';
 
@@ -76,7 +77,7 @@ export default function App() {
       <div className="mx-auto max-w-3xl">
         <header className="mb-10 text-center">
           <div className="mb-5 flex items-center justify-center">
-            <img src="https://cdn.prod.website-files.com/65b2a5a4b94fd56f37f133e3/65b2a5a4b94fd56f37f1340a_novig-logo-white.svg" alt="Novig" className="h-8" />
+            <img src={novigLogo} alt="Novig" className="h-8" />
           </div>
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-novig-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-novig-accent" />
