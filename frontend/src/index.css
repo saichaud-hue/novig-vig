@@ -15,7 +15,7 @@
 
 @layer components {
   .card {
-    @apply rounded-2xl border border-white/5 bg-novig-card p-6;
+    @apply rounded-2xl border border-white/5 bg-[#0f1420] p-6;
   }
 
   .btn-primary {

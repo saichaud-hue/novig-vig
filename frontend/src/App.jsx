@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import novigLogo from './assets/novig-logo.png';
 import axios from 'axios';
 import SportSelector from './components/SportSelector.jsx';
 import GameSelector from './components/GameSelector.jsx';
@@ -76,10 +77,7 @@ export default function App() {
       {/* Nav */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-white/5">
         <div className="flex items-center gap-2.5">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="32" height="32" rx="7" fill="#2563eb"/>
-            <path d="M8 24V8h4.5l11 12.5V8H28v16h-4.5L12.5 11.5V24H8z" fill="white"/>
-          </svg>
+          <img src={novigLogo} alt="Novig" className="h-8 w-8 rounded-lg" />
           <div>
             <div className="text-white/40 text-[10px] font-semibold tracking-widest uppercase leading-none">Novig</div>
             <div className="text-white font-bold text-sm leading-tight">Vig Calculator</div>
