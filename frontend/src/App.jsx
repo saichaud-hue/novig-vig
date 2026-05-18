@@ -75,12 +75,8 @@ export default function App() {
     <div className="min-h-screen px-4 py-10 sm:py-16">
       <div className="mx-auto max-w-3xl">
         <header className="mb-10 text-center">
-          <div className="mb-5 flex items-center justify-center gap-3">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect width="40" height="40" rx="9" fill="#3b82f6"/>
-              <path d="M10 30V10h4.5l11 14.5V10H30v20h-4.5L14.5 15.5V30H10z" fill="black"/>
-            </svg>
-            <span className="text-2xl font-black tracking-tight text-white">Novig</span>
+          <div className="mb-5 flex items-center justify-center">
+            <img src="https://cdn.prod.website-files.com/65b2a5a4b94fd56f37f133e3/65b2a5a4b94fd56f37f1340a_novig-logo-white.svg" alt="Novig" className="h-8" />
           </div>
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-novig-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-novig-accent" />
