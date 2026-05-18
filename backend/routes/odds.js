@@ -95,6 +95,8 @@ router.get('/odds/:sport', async (req, res) => {
 
   const games = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.data) ? parsed.data : parsed;
 
+  console.log('raw book sample:', JSON.stringify(games[0]?.books?.[0]));
+
   const transformed = (Array.isArray(games) ? games : []).map(g => ({
     id: g.event_id || g.id,
     home_team: g.home_team,
@@ -103,7 +105,7 @@ router.get('/odds/:sport', async (req, res) => {
     bookmakers: (g.books || g.bookmakers || []).map(b => ({
       key: b.book || b.key,
       title: b.book || b.title,
-      markets: [{ key: 'h2h', outcomes: (b.outcomes || []).map(o => ({ name: o.name, price: o.price })) }],
+      markets: [{ key: 'h2h', outcomes: (b.outcomes || b.results || []).map(o => ({ name: o.name || o.team, price: o.price || o.odds })) }],
     })),
   }));
 
