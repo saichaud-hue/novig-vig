@@ -3,9 +3,11 @@ import { FaArrowRight } from 'react-icons/fa';
 import { buildComparisonRows } from '../lib/extractBookmakerOdds.js';
 import { formatCurrency } from '../lib/calculator.js';
 
-export default function ResultsCard({ bet }) {
+export default function ResultsCard({ bet, selectedBookKey }) {
   const rows = useMemo(() => buildComparisonRows(bet), [bet]);
-  const worst = rows.find((r) => !r.isNovig);
+  const worst =
+    rows.find((r) => r.bookKey === selectedBookKey && !r.isNovig) ||
+    rows.find((r) => !r.isNovig);
 
   const teamName =
     bet.side === 'home' ? bet.game.home_team : bet.game.away_team;

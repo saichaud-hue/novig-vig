@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import SportSelector from './components/SportSelector.jsx';
 import GameSelector from './components/GameSelector.jsx';
 import BetInput from './components/BetInput.jsx';
 import VigComparison from './components/VigComparison.jsx';
 import ResultsCard from './components/ResultsCard.jsx';
+import { buildComparisonRows } from './lib/extractBookmakerOdds.js';
 
 const API_BASE = import.meta.env.VITE_API_BASE || '';
 
@@ -18,6 +19,7 @@ export default function App() {
   const [side, setSide] = useState('home');
   const [stake, setStake] = useState(30);
   const [committedBet, setCommittedBet] = useState(null);
+  const [selectedBookKey, setSelectedBookKey] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -58,11 +60,15 @@ export default function App() {
 
   const handleCalculate = () => {
     if (!selectedGame) return;
-    setCommittedBet({
+    const bet = {
       game: selectedGame,
       side,
       stake: Number(stake),
-    });
+    };
+    setCommittedBet(bet);
+    const rows = buildComparisonRows(bet);
+    const worstBook = rows.find((r) => !r.isNovig);
+    setSelectedBookKey(worstBook?.bookKey || null);
   };
 
   return (
@@ -96,6 +102,7 @@ export default function App() {
             onSelect={(id) => {
               setSelectedGameId(id);
               setCommittedBet(null);
+              setSelectedBookKey(null);
             }}
           />
 
@@ -112,8 +119,8 @@ export default function App() {
 
           {committedBet && (
             <>
-              <ResultsCard bet={committedBet} />
-              <VigComparison bet={committedBet} />
+              <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
+              <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
             </>
           )}
         </div>
