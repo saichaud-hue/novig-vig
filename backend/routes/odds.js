@@ -86,18 +86,35 @@ router.get('/odds/:sport', async (req, res) => {
     });
   }
 
-  let games;
+  let parsed;
   try {
-    games = JSON.parse(result.body);
+    parsed = JSON.parse(result.body);
   } catch (err) {
     return res.status(502).json({ error: 'Invalid JSON from Odds API' });
   }
+
+  const games = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.data) ? parsed.data : parsed;
 
   const payload = {
     sport,
     fetchedAt: new Date().toISOString(),
     count: Array.isArray(games) ? games.length : 0,
-    games: Array.isArray(games) ? games : [],
+    games: Array.isArray(games) ? games.map(game => ({
+      id: game.event_id,
+      commence_time: game.start_time,
+      home_team: game.home_team,
+      away_team: game.away_team,
+      sport_key: game.sport_key,
+      sport_title: game.sport_title,
+      bookmakers: Array.isArray(game.books) ? game.books.map(b => ({
+        key: b.book,
+        title: b.book,
+        markets: [{
+          key: 'h2h',
+          outcomes: Array.isArray(b.outcomes) ? b.outcomes.map(o => ({ name: o.name, price: o.price })) : [],
+        }],
+      })) : (game.bookmakers ?? []),
+    })) : [],
   };
 
   cache.set(cacheKey, payload);
