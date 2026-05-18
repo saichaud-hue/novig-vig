@@ -1,12 +1,9 @@
-import { FaCalculator } from 'react-icons/fa';
-
 export default function BetInput({
   game,
   side,
   stake,
   onSideChange,
   onStakeChange,
-  onCalculate,
 }) {
   const clamp = (v) => {
     const n = Number(v);
@@ -98,14 +95,6 @@ export default function BetInput({
         </div>
       </div>
 
-      <button
-        type="button"
-        onClick={onCalculate}
-        className="btn-primary mt-5 w-full"
-      >
-        <FaCalculator />
-        Calculate Savings
-      </button>
     </div>
   );
 }

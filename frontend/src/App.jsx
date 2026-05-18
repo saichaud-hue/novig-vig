@@ -64,18 +64,14 @@ export default function App() {
     [committedBet]
   );
 
-  const handleCalculate = () => {
-    if (!selectedGame) return;
-    const bet = {
-      game: selectedGame,
-      side,
-      stake: Number(stake),
-    };
+  useEffect(() => {
+    if (!selectedGame || !stake || stake < 1) return;
+    const bet = { game: selectedGame, side, stake: Number(stake) };
     setCommittedBet(bet);
     const rows = buildComparisonRows(bet);
     const worstBook = rows.find((r) => !r.isNovig);
-    setSelectedBookKey(worstBook?.bookKey || null);
-  };
+    setSelectedBookKey((prev) => prev || worstBook?.bookKey || null);
+  }, [selectedGame, side, stake]);
 
   return (
     <div className="h-screen overflow-hidden flex flex-col">
@@ -135,7 +131,6 @@ export default function App() {
                 stake={stake}
                 onSideChange={setSide}
                 onStakeChange={setStake}
-                onCalculate={handleCalculate}
               />
             )}
           </div>

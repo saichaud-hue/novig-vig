@@ -21,8 +21,8 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
   return (
     <div className="rounded-2xl border border-white/5 bg-novig-card overflow-hidden">
       <div className="border-b border-white/5 px-6 py-5">
-        <div className="section-label mb-1">Book-by-book comparison</div>
-        <h2 className="text-lg font-black text-red-400/60">Where your money is going</h2>
+        <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/50">Book-by-book comparison</div>
+        <h2 className="text-lg font-black text-red-400">Where your money is going</h2>
         <p className="mt-1 text-xs text-white/40">
           ${bet.stake} on {teamName} — sorted worst to best. Click a book to compare it above.
         </p>
@@ -57,7 +57,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/5 text-left text-xs uppercase tracking-widest text-white/25">
+            <tr className="border-b border-white/5 text-left text-xs uppercase tracking-widest text-white/40">
               <th className="px-6 py-3 font-semibold">Sportsbook</th>
               <th className="px-6 py-3 font-semibold">Odds</th>
               <th className="px-6 py-3 font-semibold text-right">
@@ -97,7 +97,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                     )}
                     <div
                       className={`font-bold ${
-                        r.isNovig ? 'text-blue-200 text-base' : 'text-slate-100'
+                        r.isNovig ? 'text-blue-200 text-base' : 'text-white'
                       }`}
                     >
                       {r.bookTitle}
@@ -117,12 +117,12 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                 <td className={`px-6 py-4 font-mono ${r.isNovig ? 'text-blue-200' : 'text-slate-200'}`}>
                   {formatOdds(r.odds)}
                 </td>
-                <td className={`px-6 py-4 text-right font-mono ${r.isNovig ? 'text-emerald-400 font-bold' : ''}`}>
+                <td className={`px-6 py-4 text-right font-mono ${r.isNovig ? 'text-emerald-400 font-bold' : 'text-white'}`}>
                   {formatCurrency(r.bookPayout)}
                 </td>
                 <td
                   className={`px-6 py-4 text-right font-mono font-semibold ${
-                    r.isNovig ? 'text-emerald-400' : 'text-red-400'
+                    r.isNovig ? 'text-emerald-400' : 'text-red-300'
                   }`}
                 >
                   {r.isNovig
