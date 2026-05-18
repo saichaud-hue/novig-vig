@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import novigLogo from './assets/novig-logo.svg'
+import novigLogo from './assets/novig-logo.png'
 import axios from 'axios';
 import SportSelector from './components/SportSelector.jsx';
 import GameSelector from './components/GameSelector.jsx';
@@ -139,16 +139,14 @@ export default function App() {
           </div>
 
           {/* Right column - results */}
-          <div className="flex flex-col gap-3 overflow-hidden min-w-0">
+          <div className="h-full overflow-hidden min-w-0">
             {committedBet ? (
-              <>
+              <div className="h-full overflow-y-auto space-y-4 pr-2">
                 <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
-                <div className="flex-1 overflow-y-auto">
-                  <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
-                </div>
-              </>
+                <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
+              </div>
             ) : (
-              <div className="flex-1 flex items-center justify-center text-white/20 text-sm text-center px-8">
+              <div className="h-full flex items-center justify-center text-white/20 text-sm text-center px-8">
                 Select a game and calculate to see your vig cost
               </div>
             )}
