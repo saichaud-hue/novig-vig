@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { buildComparisonRows } from '../lib/extractBookmakerOdds.js';
 import { formatCurrency, formatOdds } from '../lib/calculator.js';
+import novigLogo from '../assets/novig-logo.png';
 
 export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
   const rows = useMemo(() => buildComparisonRows(bet), [bet]);
@@ -67,7 +68,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                   isLastNovig ? 'border-b-2 border-blue-500/40' : 'border-b border-white/5'
                 } last:border-0 ${
                   r.isNovig
-                    ? 'bg-blue-600/20'
+                    ? 'bg-emerald-900/40'
                     : isSelected
                     ? 'border-l-4 border-l-novig-purple bg-novig-purple/20 cursor-pointer'
                     : 'hover:bg-white/[0.03] cursor-pointer'
@@ -75,15 +76,15 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
               >
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <span
-                      className={`h-2 w-2 rounded-full flex-shrink-0 ${
-                        r.isNovig
-                          ? 'bg-blue-400'
-                          : isSelected
-                          ? 'bg-novig-accent'
-                          : 'bg-slate-600'
-                      }`}
-                    />
+                    {r.isNovig ? (
+                      <img src={novigLogo} alt="Novig" className="h-5 w-5 rounded-md flex-shrink-0" />
+                    ) : (
+                      <span
+                        className={`h-2 w-2 rounded-full flex-shrink-0 ${
+                          isSelected ? 'bg-novig-accent' : 'bg-slate-600'
+                        }`}
+                      />
+                    )}
                     <div
                       className={`font-bold ${
                         r.isNovig ? 'text-blue-200 text-base' : 'text-slate-100'
