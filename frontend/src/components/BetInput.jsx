@@ -24,8 +24,8 @@ export default function BetInput({
           onClick={() => onSideChange('away')}
           className={`rounded-xl border px-4 py-3 text-left transition ${
             side === 'away'
-              ? 'border-transparent bg-novig-gradient text-white shadow-soft'
-              : 'border-white/10 bg-white/[0.04] hover:bg-white/[0.08]'
+              ? 'border-blue-500/50 bg-blue-500/10 text-white'
+              : 'border-white/5 bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white/80'
           }`}
         >
           <div className="text-[10px] font-semibold uppercase tracking-wider opacity-70">
@@ -38,8 +38,8 @@ export default function BetInput({
           onClick={() => onSideChange('home')}
           className={`rounded-xl border px-4 py-3 text-left transition ${
             side === 'home'
-              ? 'border-transparent bg-novig-gradient text-white shadow-soft'
-              : 'border-white/10 bg-white/[0.04] hover:bg-white/[0.08]'
+              ? 'border-blue-500/50 bg-blue-500/10 text-white'
+              : 'border-white/5 bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white/80'
           }`}
         >
           <div className="text-[10px] font-semibold uppercase tracking-wider opacity-70">
@@ -69,7 +69,7 @@ export default function BetInput({
             className="input pl-8"
           />
         </div>
-        <div className="mt-1 text-xs text-slate-500">Min $1 · Max $10,000</div>
+        <div className="mt-1 text-xs text-white/25">Min $1 · Max $10,000</div>
       </div>
 
       <button

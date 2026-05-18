@@ -18,10 +18,11 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
   }
 
   return (
-    <div className="card overflow-hidden p-0">
-      <div className="border-b border-white/10 px-6 py-5">
-        <h2 className="text-lg font-black">Book-by-book comparison</h2>
-        <p className="mt-1 text-sm text-slate-400">
+    <div className="rounded-2xl border border-white/5 bg-novig-card overflow-hidden">
+      <div className="border-b border-white/5 px-6 py-5">
+        <div className="section-label mb-1">Book-by-book comparison</div>
+        <h2 className="text-lg font-black text-white">Sportsbook breakdown</h2>
+        <p className="mt-1 text-xs text-white/40">
           ${bet.stake} on {teamName} — sorted worst to best. Click a book to compare it above.
         </p>
         <div className="mt-4 flex items-center gap-3">
@@ -45,7 +46,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/10 text-left text-xs uppercase tracking-wider text-slate-400">
+            <tr className="border-b border-white/5 text-left text-xs uppercase tracking-widest text-white/25">
               <th className="px-6 py-3 font-semibold">Sportsbook</th>
               <th className="px-6 py-3 font-semibold">Odds</th>
               <th className="px-6 py-3 font-semibold text-right">

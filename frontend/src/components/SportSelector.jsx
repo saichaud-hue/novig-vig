@@ -22,8 +22,8 @@ export default function SportSelector({ sport, onChange, loading }) {
               disabled={loading && active}
               className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition ${
                 active
-                  ? 'border-transparent bg-novig-gradient text-white shadow-soft'
-                  : 'border-white/10 bg-white/[0.04] text-slate-200 hover:bg-white/[0.08]'
+                  ? 'border-blue-500/50 bg-blue-500/10 text-blue-400'
+                  : 'border-white/5 bg-white/[0.03] text-white/50 hover:bg-white/[0.06] hover:text-white/80'
               }`}
             >
               <Icon className="text-base" />
@@ -33,7 +33,7 @@ export default function SportSelector({ sport, onChange, loading }) {
         })}
       </div>
       {loading && (
-        <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+        <div className="mt-3 flex items-center gap-2 text-xs text-white/30">
           <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-novig-accent border-t-transparent" />
           Loading games…
         </div>

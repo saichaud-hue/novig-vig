@@ -6,7 +6,7 @@ import BetInput from './components/BetInput.jsx';
 import VigComparison from './components/VigComparison.jsx';
 import ResultsCard from './components/ResultsCard.jsx';
 import { buildComparisonRows } from './lib/extractBookmakerOdds.js';
-import novigLogo from './assets/novig-logo.svg';
+import novigLogo from './assets/novig-n.svg';
 
 const API_BASE = import.meta.env.VITE_API_BASE || '';
 
@@ -73,25 +73,41 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen px-4 py-10 sm:py-16">
-      <div className="mx-auto max-w-3xl">
-        <header className="mb-10 text-center">
-          <div className="mb-5 flex items-center justify-center">
-            <img src={novigLogo} alt="Novig" className="h-8" />
+    <div className="min-h-screen flex flex-col">
+      {/* Nav */}
+      <nav className="flex items-center justify-between px-8 py-4 border-b border-white/5">
+        <div className="flex items-center gap-2.5">
+          <img src={novigLogo} className="h-7 w-7" alt="" />
+          <div>
+            <div className="text-white/40 text-[10px] font-semibold tracking-widest uppercase leading-none">Novig</div>
+            <div className="text-white font-bold text-sm leading-tight">Vig Calculator</div>
           </div>
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-novig-accent">
-            <span className="h-1.5 w-1.5 rounded-full bg-novig-accent" />
-            Zero-vig sportsbook
-          </div>
-          <h1 className="bg-gradient-to-r from-white to-novig-accent bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl">
-            What You Left on the Table
-          </h1>
-          <p className="mx-auto mt-3 max-w-xl text-base font-medium text-slate-400 sm:text-lg">
-            See how much vig you're paying vs Novig's zero-commission pricing.
-          </p>
-        </header>
+        </div>
+        <a
+          href="https://novig.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-white/40 hover:text-white transition-colors"
+        >
+          Place bets on Novig →
+        </a>
+      </nav>
 
-        <div className="space-y-6">
+      {/* Hero */}
+      <div className="px-8 pt-12 pb-8 max-w-3xl">
+        <div className="mb-2 section-label">Vig Calculator</div>
+        <h1 className="text-5xl font-black text-white leading-tight tracking-tight">
+          See your{' '}
+          <em className="text-blue-400 not-italic font-black">vig.</em>
+        </h1>
+        <p className="mt-3 text-white/40 text-sm max-w-md">
+          How much commission you're paying versus Novig's zero-vig pricing — broken down by sportsbook.
+        </p>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 px-8 pb-16">
+        <div className="max-w-3xl space-y-4">
           <SportSelector
             sport={sport}
             onChange={setSport}
@@ -128,12 +144,11 @@ export default function App() {
             </>
           )}
         </div>
-
-        <footer className="mt-16 text-center text-xs text-slate-500">
-          Odds data from The Odds API. Vig calculations use proportional
-          de-vigging from the two-way moneyline market.
-        </footer>
       </div>
+
+      <footer className="px-8 pb-8 text-xs text-white/20">
+        Odds data from The Odds API. Vig calculations use proportional de-vigging from the two-way moneyline market.
+      </footer>
     </div>
   );
 }

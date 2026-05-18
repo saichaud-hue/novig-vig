@@ -10,7 +10,8 @@ export default {
         novig: {
           purple: '#7c3aed',
           blue: '#3b82f6',
-          dark: '#0f0b1f',
+          dark: '#0a0e1a',
+          card: '#0f1420',
           accent: '#a78bfa',
         },
       },
