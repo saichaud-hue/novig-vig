@@ -1,8 +1,23 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { buildComparisonRows } from '../lib/extractBookmakerOdds.js';
 import { formatCurrency } from '../lib/calculator.js';
 import ShareBar from './ShareBar.jsx';
+
+function useCountUp(target, duration = 800) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!target) return;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      setValue(target * p);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [target, duration]);
+  return value;
+}
 
 export default function ResultsCard({ bet, selectedBookKey }) {
   const rows = useMemo(() => buildComparisonRows(bet), [bet]);
@@ -14,41 +29,63 @@ export default function ResultsCard({ bet, selectedBookKey }) {
   const teamName =
     bet.side === 'home' ? bet.game.home_team : bet.game.away_team;
 
-  if (!worst) {
-    return null;
-  }
+  const animatedVig = useCountUp(worst?.vigCost ?? 0);
+
+  if (!worst) return null;
+
+  const vigCost = worst.vigCost;
+  const novigPayout = novigRow?.bookPayout ?? 0;
 
   return (
     <div
       id="novig-results-card"
       className="rounded-2xl border border-white/5 bg-novig-card p-6"
     >
-      {/* Side-by-side profit comparison */}
-      <div className="grid grid-cols-2 gap-3 mb-5">
-        <div className="rounded-xl bg-red-950/40 border border-red-500/20 p-4">
-          <div className="text-[10px] font-semibold uppercase tracking-widest text-red-400/70 mb-1">{worst.bookTitle}</div>
-          <div className="text-2xl font-black text-red-400">
-            {formatCurrency(worst.bookPayout)}
-          </div>
-          <div className="text-xs text-red-400/40 mt-0.5">your profit</div>
+      {/* Unified comparison bar */}
+      <div className="rounded-xl border border-white/5 bg-white/[0.02] p-4 mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs text-white/30 uppercase tracking-wider">{worst.bookTitle}</span>
+          <span className="text-xs text-white/30 uppercase tracking-wider">Novig</span>
         </div>
-        <div className="rounded-xl bg-emerald-950/40 border border-emerald-500/30 p-4">
-          <div className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400/70 mb-1">Novig</div>
-          <div className="text-2xl font-black text-emerald-400">
-            +{novigRow ? formatCurrency(novigRow.bookPayout) : '—'}
+        <div className="flex items-center gap-3">
+          <span className="text-red-400 font-black text-xl">{formatCurrency(worst.bookPayout)}</span>
+          <div className="flex-1 h-1 bg-white/5 rounded-full relative">
+            <div
+              className="absolute right-0 top-0 h-full bg-emerald-500 rounded-full"
+              style={{ width: `${((novigPayout - worst.bookPayout) / novigPayout * 100).toFixed(1)}%` }}
+            />
           </div>
-          <div className="text-xs text-emerald-400/40 mt-0.5">your profit</div>
+          <span className="text-emerald-400 font-black text-xl">{formatCurrency(novigPayout)}</span>
         </div>
+        <div className="text-center mt-2 text-emerald-400/70 text-xs">+{formatCurrency(vigCost)} more on Novig</div>
       </div>
 
-      <div className="mb-1 section-label">You're losing</div>
-      <div className="bg-gradient-to-r from-white via-white to-novig-accent bg-clip-text text-5xl font-black tracking-tight text-transparent">
-        {formatCurrency(worst.vigCost)}
+      {/* Hidden fee — dominant number */}
+      <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-red-400/70">Hidden fee on this bet</div>
+      <div
+        className="text-7xl font-black tracking-tight text-red-400 leading-none"
+        style={{ textShadow: '0 0 40px rgba(239,68,68,0.4)' }}
+      >
+        {formatCurrency(animatedVig)}
       </div>
-      <div className="mt-1 text-sm text-slate-300">
-        to vig on{' '}
-        <span className="font-semibold text-white">{worst.bookTitle}</span> ·{' '}
-        ${bet.stake} on {teamName}
+      <div className="mt-1 text-sm text-slate-400">
+        paid to <span className="font-semibold text-white">{worst.bookTitle}</span> · ${bet.stake} on {teamName}
+      </div>
+
+      {/* Long-term damage */}
+      <div className="grid grid-cols-3 gap-3 mt-4">
+        <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
+          <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 100)}</div>
+          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">100 bets</div>
+        </div>
+        <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
+          <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 500)}</div>
+          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">500 bets</div>
+        </div>
+        <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
+          <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 1000)}</div>
+          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">1,000 bets</div>
+        </div>
       </div>
 
       <a
@@ -57,10 +94,9 @@ export default function ResultsCard({ bet, selectedBookKey }) {
         rel="noopener noreferrer"
         className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-400 transition-colors py-4 text-base font-bold text-white"
       >
-        Place This Bet on Novig
-        <FaArrowRight />
+        Keep the extra {formatCurrency(vigCost)} on Novig →
       </a>
-      <ShareBar bet={bet} vigCost={worst.vigCost} bookTitle={worst.bookTitle} />
+      <ShareBar bet={bet} vigCost={vigCost} bookTitle={worst.bookTitle} />
     </div>
   );
 }
