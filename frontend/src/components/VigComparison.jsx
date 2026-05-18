@@ -24,6 +24,22 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
         <p className="mt-1 text-sm text-slate-400">
           ${bet.stake} on {teamName} — sorted worst to best. Click a book to compare it above.
         </p>
+        <div className="mt-4 flex items-center gap-3">
+          <label className="text-sm font-medium text-slate-300 whitespace-nowrap">
+            Compare against:
+          </label>
+          <select
+            className="input py-1.5 text-sm"
+            value={selectedBookKey || ''}
+            onChange={(e) => onSelectBook(e.target.value)}
+          >
+            {rows.filter((r) => !r.isNovig).map((r) => (
+              <option key={r.bookKey} value={r.bookKey}>
+                {r.bookTitle}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
