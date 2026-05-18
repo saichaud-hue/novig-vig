@@ -53,7 +53,7 @@ export function buildComparisonRows({ game, side, stake }) {
     })();
     const novigPayout = calculatePayout(stake, consensusNoVigOdds);
 
-    rows.push({
+    rows.unshift({
       bookKey: 'novig',
       bookTitle: 'NOVIG',
       odds: consensusNoVigOdds,

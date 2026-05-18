@@ -56,15 +56,18 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
             </tr>
           </thead>
           <tbody>
-            {rows.map((r) => {
+            {rows.map((r, i) => {
               const isSelected = !r.isNovig && r.bookKey === selectedBookKey;
+              const isLastNovig = r.isNovig && rows[i + 1] && !rows[i + 1].isNovig;
               return (
               <tr
                 key={r.bookKey}
                 onClick={r.isNovig ? undefined : () => onSelectBook(r.bookKey)}
-                className={`border-b border-white/5 last:border-0 transition ${
+                className={`transition ${
+                  isLastNovig ? 'border-b-2 border-blue-500/40' : 'border-b border-white/5'
+                } last:border-0 ${
                   r.isNovig
-                    ? 'bg-emerald-900/30'
+                    ? 'bg-blue-600/20'
                     : isSelected
                     ? 'border-l-4 border-l-novig-purple bg-novig-purple/20 cursor-pointer'
                     : 'hover:bg-white/[0.03] cursor-pointer'
@@ -75,35 +78,35 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                     <span
                       className={`h-2 w-2 rounded-full flex-shrink-0 ${
                         r.isNovig
-                          ? 'bg-emerald-400'
+                          ? 'bg-blue-400'
                           : isSelected
                           ? 'bg-novig-accent'
                           : 'bg-slate-600'
                       }`}
                     />
                     <div
-                      className={`font-semibold ${
-                        r.isNovig ? 'text-emerald-300' : 'text-slate-100'
+                      className={`font-bold ${
+                        r.isNovig ? 'text-blue-200 text-base' : 'text-slate-100'
                       }`}
                     >
                       {r.bookTitle}
                     </div>
+                    {r.isNovig && (
+                      <span className="ml-1 rounded-full bg-blue-500/30 border border-blue-400/40 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-300">
+                        ✓ Zero Vig
+                      </span>
+                    )}
                   </div>
-                  {r.isNovig && (
-                    <div className="ml-4 text-[10px] font-medium uppercase tracking-wider text-emerald-400/80">
-                      Zero-vig pricing
-                    </div>
-                  )}
                   {isSelected && (
                     <div className="ml-4 text-[10px] font-medium uppercase tracking-wider text-novig-accent">
                       Selected
                     </div>
                   )}
                 </td>
-                <td className="px-6 py-4 font-mono text-slate-200">
+                <td className={`px-6 py-4 font-mono ${r.isNovig ? 'text-blue-200' : 'text-slate-200'}`}>
                   {formatOdds(r.odds)}
                 </td>
-                <td className="px-6 py-4 text-right font-mono">
+                <td className={`px-6 py-4 text-right font-mono ${r.isNovig ? 'text-emerald-400 font-bold' : ''}`}>
                   {formatCurrency(r.bookPayout)}
                 </td>
                 <td
@@ -111,7 +114,9 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                     r.isNovig ? 'text-emerald-400' : 'text-red-400'
                   }`}
                 >
-                  {r.isNovig ? <span className="text-emerald-400 font-black">$0.00</span> : `-${formatCurrency(r.vigCost).replace('-', '')}`}
+                  {r.isNovig
+                    ? <span className="text-emerald-400 font-black text-base">$0.00</span>
+                    : `-${formatCurrency(r.vigCost).replace('-', '')}`}
                 </td>
               </tr>
             );})}
