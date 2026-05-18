@@ -6,6 +6,7 @@ import GameSelector from './components/GameSelector.jsx';
 import BetInput from './components/BetInput.jsx';
 import VigComparison from './components/VigComparison.jsx';
 import ResultsCard from './components/ResultsCard.jsx';
+import BetSlip from './components/BetSlip.jsx';
 import { buildComparisonRows } from './lib/extractBookmakerOdds.js';
 
 const API_BASE = import.meta.env.VITE_API_BASE || '';
@@ -58,6 +59,10 @@ export default function App() {
   }, [sport]);
 
   const selectedGame = games.find((g) => g.id === selectedGameId) || null;
+  const committedRows = useMemo(
+    () => (committedBet ? buildComparisonRows(committedBet) : []),
+    [committedBet]
+  );
 
   const handleCalculate = () => {
     if (!selectedGame) return;
@@ -144,6 +149,7 @@ export default function App() {
             {committedBet ? (
               <div className="h-full overflow-y-auto space-y-4 pr-2">
                 <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
+                <BetSlip bet={committedBet} rows={committedRows} />
                 <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
               </div>
             ) : (
