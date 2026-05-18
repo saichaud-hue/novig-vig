@@ -94,7 +94,7 @@ export default function App() {
       </nav>
 
       {/* Hero */}
-      <div className="px-8 pt-12 pb-8 max-w-3xl">
+      <div className="px-8 pt-12 pb-8 max-w-6xl">
         <div className="mb-2 section-label">Vig Calculator</div>
         <h1 className="text-5xl font-black text-white leading-tight tracking-tight">
           See your{' '}
@@ -107,42 +107,47 @@ export default function App() {
 
       {/* Content */}
       <div className="flex-1 px-8 pb-16">
-        <div className="max-w-3xl space-y-4">
-          <SportSelector
-            sport={sport}
-            onChange={setSport}
-            loading={loadingGames}
-          />
-
-          <GameSelector
-            games={games}
-            loading={loadingGames}
-            error={gamesError}
-            selectedGameId={selectedGameId}
-            onSelect={(id) => {
-              setSelectedGameId(id);
-              setCommittedBet(null);
-              setSelectedBookKey(null);
-            }}
-          />
-
-          {selectedGame && (
-            <BetInput
-              game={selectedGame}
-              side={side}
-              stake={stake}
-              onSideChange={setSide}
-              onStakeChange={setStake}
-              onCalculate={handleCalculate}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl">
+          {/* Left column - inputs */}
+          <div className="space-y-4">
+            <SportSelector
+              sport={sport}
+              onChange={setSport}
+              loading={loadingGames}
             />
-          )}
 
-          {committedBet && (
-            <>
-              <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
-              <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
-            </>
-          )}
+            <GameSelector
+              games={games}
+              loading={loadingGames}
+              error={gamesError}
+              selectedGameId={selectedGameId}
+              onSelect={(id) => {
+                setSelectedGameId(id);
+                setCommittedBet(null);
+                setSelectedBookKey(null);
+              }}
+            />
+
+            {selectedGame && (
+              <BetInput
+                game={selectedGame}
+                side={side}
+                stake={stake}
+                onSideChange={setSide}
+                onStakeChange={setStake}
+                onCalculate={handleCalculate}
+              />
+            )}
+          </div>
+          {/* Right column - results */}
+          <div className="space-y-4">
+            {committedBet && (
+              <>
+                <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
+                <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
+              </>
+            )}
+          </div>
         </div>
       </div>
 
