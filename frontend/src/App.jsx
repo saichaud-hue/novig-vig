@@ -77,19 +77,20 @@ export default function App() {
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-2.5 border-b border-white/5 shrink-0">
         <div className="flex items-center gap-2.5">
-          <img src={novigLogo} alt="Novig" className="h-7 w-7 rounded-lg" />
+          <img src={novigLogo} alt="Novig" className="h-9 w-9 rounded-lg" />
           <div>
             <div className="text-white/40 text-[10px] font-semibold tracking-widest uppercase leading-none">Novig</div>
-            <div className="text-white font-bold text-sm leading-tight">Vig Calculator</div>
+            <div className="text-white font-black text-base leading-tight">Vig Calculator</div>
           </div>
         </div>
         <a
           href="https://novig.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-white/40 hover:text-white transition-colors"
+          className="flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-white font-bold text-sm px-4 py-2 rounded-xl transition"
         >
-          Place bets on Novig →
+          <img src={novigLogo} alt="" className="h-4 w-4 rounded" />
+          Bet on Novig
         </a>
       </nav>
 

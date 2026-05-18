@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { buildComparisonRows } from '../lib/extractBookmakerOdds.js';
 import { formatCurrency } from '../lib/calculator.js';
+import ShareBar from './ShareBar.jsx';
 
 export default function ResultsCard({ bet, selectedBookKey }) {
   const rows = useMemo(() => buildComparisonRows(bet), [bet]);
@@ -59,6 +60,7 @@ export default function ResultsCard({ bet, selectedBookKey }) {
         Place This Bet on Novig
         <FaArrowRight />
       </a>
+      <ShareBar bet={bet} vigCost={worst.vigCost} bookTitle={worst.bookTitle} />
     </div>
   );
 }

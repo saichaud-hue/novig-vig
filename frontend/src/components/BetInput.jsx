@@ -50,26 +50,52 @@ export default function BetInput({
       </div>
 
       <div className="mt-4">
-        <label className="label" htmlFor="stake">
-          Stake
-        </label>
-        <div className="relative">
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-            $
-          </span>
+        <label className="label">Stake</label>
+        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-white/40 text-xs font-semibold uppercase tracking-wider">Wager</span>
+            <div className="flex items-center gap-1">
+              <span className="text-white/50">$</span>
+              <input
+                type="number"
+                min={1}
+                max={10000}
+                value={stake}
+                onChange={(e) => onStakeChange(e.target.value)}
+                onBlur={(e) => onStakeChange(clamp(e.target.value))}
+                className="w-20 bg-transparent text-right text-white font-black text-xl outline-none"
+              />
+            </div>
+          </div>
           <input
-            id="stake"
-            type="number"
+            type="range"
             min={1}
-            max={10_000}
-            step={1}
-            value={stake}
-            onChange={(e) => onStakeChange(e.target.value)}
-            onBlur={(e) => onStakeChange(clamp(e.target.value))}
-            className="input pl-8"
+            max={1000}
+            step={5}
+            value={Math.min(stake, 1000)}
+            onChange={(e) => onStakeChange(Number(e.target.value))}
+            className="w-full accent-blue-500 h-1.5 rounded-full"
           />
+          <div className="flex justify-between mt-1 text-[10px] text-white/25">
+            <span>$1</span><span>$250</span><span>$500</span><span>$1,000+</span>
+          </div>
+          <div className="flex gap-2 mt-3">
+            {[10, 25, 50, 100, 500].map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => onStakeChange(v)}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition border ${
+                  Number(stake) === v
+                    ? 'border-blue-500 bg-blue-500/20 text-blue-300'
+                    : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10'
+                }`}
+              >
+                ${v}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="mt-1 text-xs text-white/25">Min $1 · Max $10,000</div>
       </div>
 
       <button
