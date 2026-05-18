@@ -48,11 +48,6 @@ router.get('/odds/:sport', async (req, res) => {
   }
 
   const cacheKey = `odds:${sport}`;
-  const cached = cache.get(cacheKey);
-  if (cached) {
-    res.setHeader('X-Cache', 'HIT');
-    return res.json(cached);
-  }
 
   let result;
   try {
@@ -95,7 +90,7 @@ router.get('/odds/:sport', async (req, res) => {
 
   const games = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.data) ? parsed.data : parsed;
 
-  console.log('raw book sample:', JSON.stringify(games[0]?.books?.[0]));
+  console.log('raw book sample:', JSON.stringify(parsed[0]?.books?.[0]));
 
   const transformed = (Array.isArray(games) ? games : []).map(g => ({
     id: g.event_id || g.id,
@@ -115,6 +110,12 @@ router.get('/odds/:sport', async (req, res) => {
     count: transformed.length,
     games: transformed,
   };
+
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    res.setHeader('X-Cache', 'HIT');
+    return res.json(cached);
+  }
 
   cache.set(cacheKey, payload);
   res.setHeader('X-Cache', 'MISS');
