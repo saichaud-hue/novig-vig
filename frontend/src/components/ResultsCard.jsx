@@ -72,22 +72,6 @@ export default function ResultsCard({ bet, selectedBookKey }) {
         paid to <span className="font-semibold text-white">{worst.bookTitle}</span> · ${bet.stake} on {teamName}
       </div>
 
-      {/* Long-term damage */}
-      <div className="grid grid-cols-3 gap-3 mt-4">
-        <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
-          <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 100)}</div>
-          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">100 trades</div>
-        </div>
-        <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
-          <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 500)}</div>
-          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">500 trades</div>
-        </div>
-        <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
-          <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 1000)}</div>
-          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">1,000 trades</div>
-        </div>
-      </div>
-
       <a
         href="https://novig.co"
         target="_blank"

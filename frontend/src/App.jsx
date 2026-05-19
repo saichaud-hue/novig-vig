@@ -143,7 +143,7 @@ export default function App() {
 
             {selectedGameId && (
               <div className="card">
-                <label className="label">Compare against</label>
+                <label className="label">What do you trade on right now?</label>
                 <select
                   className="input"
                   value={selectedBookKey || ''}
