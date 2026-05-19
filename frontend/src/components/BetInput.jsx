@@ -13,7 +13,7 @@ export default function BetInput({
 
   return (
     <div className="card">
-      <label className="label">Your bet</label>
+      <label className="label">Your trade</label>
 
       <div className="grid gap-3 sm:grid-cols-2">
         <button
@@ -21,7 +21,7 @@ export default function BetInput({
           onClick={() => onSideChange('away')}
           className={`rounded-xl border px-4 py-3 text-left transition ${
             side === 'away'
-              ? 'border-blue-500/50 bg-blue-500/10 text-white'
+              ? 'border-[#179BE7]/50 bg-[#179BE7]/10 text-white'
               : 'border-white/5 bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white/80'
           }`}
         >
@@ -35,7 +35,7 @@ export default function BetInput({
           onClick={() => onSideChange('home')}
           className={`rounded-xl border px-4 py-3 text-left transition ${
             side === 'home'
-              ? 'border-blue-500/50 bg-blue-500/10 text-white'
+              ? 'border-[#179BE7]/50 bg-[#179BE7]/10 text-white'
               : 'border-white/5 bg-white/[0.03] text-white/60 hover:bg-white/[0.06] hover:text-white/80'
           }`}
         >
@@ -71,7 +71,7 @@ export default function BetInput({
             step={5}
             value={Math.min(stake, 1000)}
             onChange={(e) => onStakeChange(Number(e.target.value))}
-            className="w-full accent-blue-500 h-1.5 rounded-full"
+            className="w-full accent-[#179BE7] h-1.5 rounded-full"
           />
           <div className="flex justify-between mt-1 text-[10px] text-white/25">
             <span>$1</span><span>$250</span><span>$500</span><span>$1,000+</span>
@@ -84,7 +84,7 @@ export default function BetInput({
                 onClick={() => onStakeChange(v)}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition border ${
                   Number(stake) === v
-                    ? 'border-blue-500 bg-blue-500/20 text-blue-300'
+                    ? 'border-[#179BE7] bg-[#179BE7]/20 text-[#179BE7]'
                     : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10'
                 }`}
               >

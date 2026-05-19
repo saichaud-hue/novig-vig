@@ -4,7 +4,7 @@ import { FaCopy, FaTwitter, FaCheck } from 'react-icons/fa';
 export default function ShareBar({ bet, vigCost, bookTitle }) {
   const [copied, setCopied] = useState(false);
 
-  const shareText = `I'm losing $${vigCost?.toFixed(2)} to vig on ${bookTitle} on every $${bet?.stake} bet. Novig charges ZERO vig. 👀 Check yours:`;
+  const shareText = `I'm losing $${vigCost?.toFixed(2)} to vig on ${bookTitle} on every $${bet?.stake} trade. Novig charges ZERO vig. 👀 Check yours:`;
   const shareUrl = 'https://novig.com';
 
   const copyLink = () => {
@@ -31,7 +31,7 @@ export default function ShareBar({ bet, vigCost, bookTitle }) {
       </button>
       <button
         onClick={tweetIt}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-blue-400/30 bg-blue-400/10 hover:bg-blue-400/20 text-sm text-blue-300 hover:text-blue-200 transition"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-[#179BE7]/30 bg-[#179BE7]/10 hover:bg-[#179BE7]/20 text-sm text-[#179BE7] hover:text-[#179BE7]/80 transition"
       >
         <FaTwitter />
         Share

@@ -42,12 +42,12 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                 key={r.bookKey}
                 onClick={r.isNovig ? undefined : () => onSelectBook(r.bookKey)}
                 className={`transition ${
-                  isLastNovig ? 'border-b-2 border-blue-500/40' : 'border-b border-white/5'
+                  isLastNovig ? 'border-b-2 border-[#179BE7]/40' : 'border-b border-white/5'
                 } last:border-0 ${
                   r.isNovig
                     ? 'bg-emerald-900/40'
                     : isSelected
-                    ? 'border-l-4 border-l-novig-purple bg-novig-purple/20 cursor-pointer'
+                    ? 'border-l-4 border-l-[#179BE7] bg-[#179BE7]/10 cursor-pointer'
                     : 'hover:bg-white/[0.03] cursor-pointer'
                 }`}
               >
@@ -58,7 +58,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                     ) : (
                       <span
                         className={`h-2 w-2 rounded-full flex-shrink-0 ${
-                          isSelected ? 'bg-novig-accent' : 'bg-slate-600'
+                          isSelected ? 'bg-[#179BE7]' : 'bg-slate-600'
                         }`}
                       />
                     )}
@@ -76,7 +76,7 @@ export default function VigComparison({ bet, selectedBookKey, onSelectBook }) {
                     )}
                   </div>
                   {isSelected && (
-                    <div className="ml-4 text-[10px] font-medium uppercase tracking-wider text-novig-accent">
+                    <div className="ml-4 text-[10px] font-medium uppercase tracking-wider text-[#179BE7]">
                       Selected
                     </div>
                   )}

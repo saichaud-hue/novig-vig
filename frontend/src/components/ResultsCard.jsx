@@ -61,7 +61,7 @@ export default function ResultsCard({ bet, selectedBookKey }) {
       </div>
 
       {/* Hidden fee — dominant number */}
-      <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-red-400/70">Hidden fee on this bet</div>
+      <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-red-400/70">Hidden fee on this trade</div>
       <div
         className="text-7xl font-black tracking-tight text-red-400 leading-none"
         style={{ textShadow: '0 0 40px rgba(239,68,68,0.4)' }}
@@ -76,15 +76,15 @@ export default function ResultsCard({ bet, selectedBookKey }) {
       <div className="grid grid-cols-3 gap-3 mt-4">
         <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
           <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 100)}</div>
-          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">100 bets</div>
+          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">100 trades</div>
         </div>
         <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
           <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 500)}</div>
-          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">500 bets</div>
+          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">500 trades</div>
         </div>
         <div className="rounded-xl bg-red-950/30 border border-red-500/15 p-3 text-center">
           <div className="text-red-400 font-black text-lg">{formatCurrency(vigCost * 1000)}</div>
-          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">1,000 bets</div>
+          <div className="text-white/30 text-[10px] uppercase tracking-wider mt-0.5">1,000 trades</div>
         </div>
       </div>
 
@@ -92,9 +92,9 @@ export default function ResultsCard({ bet, selectedBookKey }) {
         href="https://novig.co"
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-400 transition-colors py-4 text-base font-bold text-white"
+        className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#179BE7] hover:bg-[#179BE7]/90 transition-colors py-4 text-base font-bold text-white"
       >
-        Keep the extra {formatCurrency(vigCost)} on Novig →
+        Keep the extra {formatCurrency(vigCost)} — trade on Novig →
       </a>
       <ShareBar bet={bet} vigCost={vigCost} bookTitle={worst.bookTitle} />
     </div>

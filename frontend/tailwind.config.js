@@ -4,14 +4,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         novig: {
           purple: '#7c3aed',
-          blue: '#3b82f6',
-          dark: '#0a0e1a',
-          card: '#0f1420',
+          blue: '#179BE7',
+          brand: '#179BE7',
+          dark: '#000000',
+          card: '#0d1117',
           accent: '#a78bfa',
         },
       },

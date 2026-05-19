@@ -90,10 +90,10 @@ export default function App() {
           href="https://novig.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-white font-bold text-sm px-4 py-2 rounded-xl transition"
+          className="flex items-center gap-2 bg-[#179BE7] hover:bg-[#179BE7]/90 text-white font-bold text-sm px-4 py-2 rounded-xl transition"
         >
           <img src={novigLogo} alt="" className="h-4 w-4 rounded" />
-          Bet on Novig
+          Trade on Novig
         </a>
       </nav>
 
@@ -104,7 +104,7 @@ export default function App() {
           <div className="flex flex-col gap-3 overflow-y-auto min-w-0">
             <div>
               <h1 className="text-3xl font-black text-white leading-tight tracking-tight">
-                Sportsbooks are charging you hidden fees.
+                Sportsbooks charge hidden fees on every trade.
               </h1>
               <p className="mt-1 text-white/50 text-sm max-w-md">
                 See exactly how much — and what you'd keep on Novig.
