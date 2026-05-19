@@ -28,10 +28,14 @@ export default function BetSlip({ bet, rows }) {
     if (!slipRef.current) return;
     const canvas = await html2canvas(slipRef.current, {
       backgroundColor: '#0d1117',
-      scale: 2,
+      scale: 3,
+      useCORS: true,
+      letterRendering: true,
+      windowWidth: slipRef.current.scrollWidth,
+      windowHeight: slipRef.current.scrollHeight,
     });
     const link = document.createElement('a');
-    link.download = 'novig-bet-slip.png';
+    link.download = 'novig-trade-slip.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
   };
@@ -39,17 +43,17 @@ export default function BetSlip({ bet, rows }) {
   if (!hasData) {
     return (
       <div className="rounded-2xl border border-white/10 overflow-hidden" style={{ background: '#0d1117' }}>
-        <div className="px-5 py-4 flex items-center justify-between">
+        <div className="px-8 py-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img src={novigLogo} alt="Novig" className="h-7 w-7 rounded-md" />
             <span className="text-white font-black text-base tracking-wide">NOVIG</span>
           </div>
-          <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-3 py-0.5 text-[11px] font-bold uppercase tracking-widest text-emerald-400">
+          <span className="rounded-full bg-emerald-500 px-4 py-1.5 text-[11px] font-black uppercase tracking-widest text-white">
             Zero Vig
           </span>
         </div>
-        <div className="mx-5 border-t border-dashed border-white/20" />
-        <div className="px-5 py-10 flex items-center justify-center text-white/20 text-sm text-center">
+        <div className="mx-8 border-t border-dashed border-white/20" />
+        <div className="px-8 py-10 flex items-center justify-center text-white/20 text-sm text-center">
           Your trade slip will appear here
         </div>
         <ZigzagEdge />
@@ -62,73 +66,73 @@ export default function BetSlip({ bet, rows }) {
       {/* The slip card — captured by html2canvas */}
       <div
         ref={slipRef}
-        className="rounded-2xl border border-white/10 overflow-hidden relative"
+        className="rounded-2xl border border-white/10 overflow-hidden relative min-w-[600px]"
         style={{ background: '#0d1117' }}
       >
-        {/* Watermark logo */}
+        {/* Watermark logo — bottom-right corner */}
         <img
           src={novigLogo}
           alt=""
           aria-hidden
-          className="absolute inset-0 m-auto w-32 h-32 object-contain pointer-events-none select-none"
-          style={{ opacity: 0.05 }}
+          className="absolute bottom-4 right-4 w-24 h-24 object-contain pointer-events-none select-none"
+          style={{ opacity: 0.03 }}
         />
 
         {/* Header */}
-        <div className="relative px-5 py-4 flex items-center justify-between">
+        <div className="relative px-8 py-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img src={novigLogo} alt="Novig" className="h-7 w-7 rounded-md" />
             <span className="text-white font-black text-base tracking-wide">NOVIG</span>
           </div>
-          <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-3 py-0.5 text-[11px] font-bold uppercase tracking-widest text-emerald-400">
+          <span className="rounded-full bg-emerald-500 px-4 py-1.5 text-[11px] font-black uppercase tracking-widest text-white">
             Zero Vig
           </span>
         </div>
 
         {/* Dashed divider — ticket perforation */}
-        <div className="mx-5 border-t border-dashed border-white/20" />
+        <div className="mx-8 border-t border-dashed border-white/20" />
 
-        {/* Bet details */}
-        <div className="relative px-5 py-4 space-y-3">
+        {/* Trade details */}
+        <div className="relative px-8 py-6 space-y-5">
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-0.5">Matchup</div>
-            <div className="text-white/70 text-sm">
+            <div className="text-white/70 text-base">
               {bet.game.away_team} <span className="text-white/30">@</span> {bet.game.home_team}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-5">
             <div>
               <div className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-0.5">Pick</div>
-              <div className="text-white font-bold text-sm">{teamName}</div>
+              <div className="text-white font-black text-xl">{teamName}</div>
             </div>
             <div>
               <div className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-0.5">Odds</div>
-              <div className="text-blue-300 font-bold text-sm">{formatOdds(novigRow.odds)}</div>
+              <div className="text-blue-300 font-bold text-xl">{formatOdds(novigRow.odds)}</div>
             </div>
             <div>
               <div className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-0.5">Stake</div>
-              <div className="text-white font-bold text-sm">{formatCurrency(bet.stake)}</div>
+              <div className="text-white font-bold text-xl">{formatCurrency(bet.stake)}</div>
             </div>
             <div>
               <div className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-0.5">To Win</div>
-              <div className="text-emerald-400 font-black text-lg">{formatCurrency(payout)}</div>
+              <div className="text-emerald-400 font-black text-2xl">{formatCurrency(payout)}</div>
             </div>
           </div>
         </div>
 
-        {/* Zigzag ticket edge */}
-        <div className="relative bg-white/5">
-          <div className="px-5 py-3">
-            <div className="text-[11px] text-white/30">
+        {/* Footer comparison row */}
+        <div className="relative" style={{ background: 'rgba(0,0,0,0.4)' }}>
+          <div className="px-8 py-4">
+            <div className="text-xs text-white/30">
               vs{' '}
               <span className="text-white/50 font-semibold">{worstRow.bookTitle}</span>
               {': '}
-              <span className="text-red-400 font-semibold">
+              <span className="text-red-400 font-bold">
                 would only pay {formatCurrency(worstRow.bookPayout + bet.stake)}
               </span>
               {' — '}
-              <span className="text-red-400 font-semibold">{formatCurrency(novigRow.bookPayout - worstRow.bookPayout)} less</span>
+              <span className="text-red-400 font-bold">{formatCurrency(novigRow.bookPayout - worstRow.bookPayout)} less</span>
             </div>
           </div>
         </div>
