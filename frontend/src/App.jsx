@@ -73,6 +73,7 @@ export default function App() {
     const bet = { game: selectedGame, side, stake: Number(stake) };
     setCommittedBet(bet);
     setPage('results');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   return (
@@ -82,7 +83,12 @@ export default function App() {
         <div className="flex items-center gap-3">
           {page === 'results' && (
             <button
-              onClick={() => setPage('configure')}
+              onClick={() => {
+              setPage('configure');
+              setCommittedBet(null);
+              setSide('');
+              window.scrollTo({ top: 0, behavior: 'instant' });
+            }}
               className="flex items-center gap-1.5 text-sm text-white/50 hover:text-white transition mr-1"
             >
               ← Change Trade
