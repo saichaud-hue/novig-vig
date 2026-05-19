@@ -12,13 +12,15 @@ import { buildComparisonRows } from './lib/extractBookmakerOdds.js';
 const API_BASE = import.meta.env.VITE_API_BASE || '';
 
 export default function App() {
+  const [page, setPage] = useState('configure');
+
   const [sport, setSport] = useState('basketball_nba');
   const [games, setGames] = useState([]);
   const [loadingGames, setLoadingGames] = useState(false);
   const [gamesError, setGamesError] = useState(null);
 
   const [selectedGameId, setSelectedGameId] = useState('');
-  const [side, setSide] = useState('home');
+  const [side, setSide] = useState('');
   const [stake, setStake] = useState(30);
   const [committedBet, setCommittedBet] = useState(null);
   const [selectedBookKey, setSelectedBookKey] = useState(null);
@@ -55,9 +57,7 @@ export default function App() {
         if (!cancelled) setLoadingGames(false);
       });
 
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [sport]);
 
   const selectedGame = games.find((g) => g.id === selectedGameId) || null;
@@ -66,24 +66,34 @@ export default function App() {
     [committedBet]
   );
 
-  useEffect(() => {
-    if (!selectedGame || !stake || stake < 1) return;
+  const canCalculate = !!(selectedGame && selectedBookKey && side);
+
+  const handleCalculate = () => {
+    if (!canCalculate) return;
     const bet = { game: selectedGame, side, stake: Number(stake) };
     setCommittedBet(bet);
-    const rows = buildComparisonRows(bet);
-    const worstBook = rows.find((r) => !r.isNovig);
-    setSelectedBookKey((prev) => prev || worstBook?.bookKey || null);
-  }, [selectedGame, side, stake, selectedBookKey]);
+    setPage('results');
+  };
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-2.5 border-b border-white/5 shrink-0">
-        <div className="flex items-center gap-2.5">
-          <img src={novigLogo} alt="Novig" className="h-9 w-9 rounded-lg" />
-          <div>
-            <div className="text-white/40 text-[10px] font-semibold tracking-widest uppercase leading-none">Novig</div>
-            <div className="text-white font-black text-base leading-tight">Vig Calculator</div>
+        <div className="flex items-center gap-3">
+          {page === 'results' && (
+            <button
+              onClick={() => setPage('configure')}
+              className="flex items-center gap-1.5 text-sm text-white/50 hover:text-white transition mr-1"
+            >
+              ← Change Trade
+            </button>
+          )}
+          <div className="flex items-center gap-2.5">
+            <img src={novigLogo} alt="Novig" className="h-9 w-9 rounded-lg" />
+            <div>
+              <div className="text-white/40 text-[10px] font-semibold tracking-widest uppercase leading-none">Novig</div>
+              <div className="text-white font-black text-base leading-tight">Vig Calculator</div>
+            </div>
           </div>
         </div>
         <a
@@ -97,24 +107,25 @@ export default function App() {
         </a>
       </nav>
 
-      {/* Two-column content */}
-      <div className="flex-1 overflow-hidden px-6 pb-4 pt-5">
-        <div className="grid h-full gap-4 items-start" style={{ gridTemplateColumns: '40% 1fr' }}>
-          {/* Left column - hero + inputs */}
-          <div className="flex flex-col gap-3 overflow-y-auto min-w-0">
+      {/* Page 1 — Configure */}
+      {page === 'configure' && (
+        <div className="flex-1 overflow-y-auto px-6 py-8">
+          <div className="max-w-[480px] mx-auto flex flex-col gap-5">
             <div>
               <h1 className="text-3xl font-black text-white leading-tight tracking-tight">
                 Sportsbooks charge hidden fees on every trade.
               </h1>
-              <p className="mt-1 text-white/50 text-sm max-w-md">
+              <p className="mt-1 text-white/50 text-sm">
                 See exactly how much — and what you'd keep on Novig.
               </p>
             </div>
+
             <SportSelector
               sport={sport}
-              onChange={setSport}
+              onChange={(s) => { setSport(s); setSide(''); }}
               loading={loadingGames}
             />
+
             <GameSelector
               games={games}
               loading={loadingGames}
@@ -123,11 +134,13 @@ export default function App() {
               onSelect={(id) => {
                 setSelectedGameId(id);
                 setCommittedBet(null);
+                setSide('');
                 const game = games.find((g) => g.id === id);
                 const hasFanduel = game?.bookmakers?.find((b) => b.key === 'fanduel');
                 setSelectedBookKey(hasFanduel ? 'fanduel' : game?.bookmakers?.[0]?.key || null);
               }}
             />
+
             {selectedGameId && (
               <div className="card">
                 <label className="label">Compare against</label>
@@ -143,7 +156,8 @@ export default function App() {
                 </select>
               </div>
             )}
-            {selectedBookKey && (
+
+            {selectedBookKey && selectedGame && (
               <BetInput
                 game={selectedGame}
                 side={side}
@@ -152,24 +166,41 @@ export default function App() {
                 onStakeChange={setStake}
               />
             )}
-          </div>
 
-          {/* Right column - results */}
-          <div className="self-start overflow-hidden min-w-0">
-            {committedBet ? (
-              <div className="max-h-[calc(100vh-5rem)] overflow-y-auto space-y-3 pr-2">
-                <BetSlip bet={committedBet} rows={committedRows} />
+            <button
+              type="button"
+              onClick={handleCalculate}
+              disabled={!canCalculate}
+              className={`w-full py-4 rounded-xl font-bold text-base transition ${
+                canCalculate
+                  ? 'bg-[#179BE7] hover:bg-[#179BE7]/90 text-white'
+                  : 'bg-white/5 text-white/20 cursor-not-allowed'
+              }`}
+            >
+              Calculate Savings →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Page 2 — Results */}
+      {page === 'results' && (
+        <div className="flex-1 overflow-y-auto px-6 py-6">
+          <div className="max-w-2xl mx-auto flex flex-col gap-4">
+            <BetSlip bet={committedBet} rows={committedRows} />
+            {committedBet && (
+              <>
                 <ResultsCard bet={committedBet} selectedBookKey={selectedBookKey} />
-                <VigComparison bet={committedBet} selectedBookKey={selectedBookKey} onSelectBook={setSelectedBookKey} />
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center h-64 rounded-2xl border border-white/5 bg-white/[0.02] text-white/20 text-sm">
-                Select a game and pick your team to see your vig cost
-              </div>
+                <VigComparison
+                  bet={committedBet}
+                  selectedBookKey={selectedBookKey}
+                  onSelectBook={setSelectedBookKey}
+                />
+              </>
             )}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
