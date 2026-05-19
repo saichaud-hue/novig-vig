@@ -100,7 +100,7 @@ export default function App() {
           href="https://novig.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-[#179BE7] hover:bg-[#179BE7]/90 text-white font-bold text-sm px-4 py-2 rounded-xl transition"
+          className="flex items-center gap-2 bg-[#179BE7] hover:bg-[#179BE7]/90 text-black font-bold text-sm px-4 py-2 rounded-xl transition"
         >
           <img src={novigLogo} alt="" className="h-4 w-4 rounded" />
           Trade on Novig
@@ -113,10 +113,10 @@ export default function App() {
           <div className="max-w-[480px] mx-auto flex flex-col gap-5">
             <div>
               <h1 className="text-3xl font-black text-white leading-tight tracking-tight">
-                Sportsbooks charge hidden fees on every trade.
+                Sportsbooks take a cut on every trade.
               </h1>
               <p className="mt-1 text-white/50 text-sm">
-                See exactly how much — and what you'd keep on Novig.
+                See exactly how much you're losing — and what you'd keep on Novig.
               </p>
             </div>
 
@@ -173,12 +173,17 @@ export default function App() {
               disabled={!canCalculate}
               className={`w-full py-4 rounded-xl font-bold text-base transition ${
                 canCalculate
-                  ? 'bg-[#179BE7] hover:bg-[#179BE7]/90 text-white'
+                  ? 'bg-[#179BE7] hover:bg-[#179BE7]/90 text-black'
                   : 'bg-white/5 text-white/20 cursor-not-allowed'
               }`}
             >
               Calculate Savings →
             </button>
+
+            <p className="text-[11px] text-white/20 text-center">
+              Available in select U.S. states only. Must be 21+ to enter.{' '}
+              <a href="https://novig.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/40 transition">Check availability at novig.com</a>
+            </p>
           </div>
         </div>
       )}
@@ -201,6 +206,11 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Legal footer — both pages */}
+      <footer className="shrink-0 border-t border-white/5 py-3 px-6 text-center text-[11px] text-white/20">
+        Must be 21+ to enter. Please play responsibly. Void where prohibited. No purchase necessary.
+      </footer>
     </div>
   );
 }

@@ -50,7 +50,7 @@ export default function BetInput({
         <label className="label">Stake</label>
         <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-white/40 text-xs font-semibold uppercase tracking-wider">Wager</span>
+            <span className="text-white/40 text-xs font-semibold uppercase tracking-wider">Stake</span>
             <div className="flex items-center gap-1">
               <span className="text-white/50">$</span>
               <input

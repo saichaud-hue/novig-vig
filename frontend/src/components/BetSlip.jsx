@@ -50,7 +50,7 @@ export default function BetSlip({ bet, rows }) {
         </div>
         <div className="mx-5 border-t border-dashed border-white/20" />
         <div className="px-5 py-10 flex items-center justify-center text-white/20 text-sm text-center">
-          Your bet slip will appear here
+          Your trade slip will appear here
         </div>
         <ZigzagEdge />
       </div>
